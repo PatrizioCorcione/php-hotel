@@ -36,7 +36,8 @@ $hotels = [
     'distance_to_center' => 50
   ],
 ];
-$parkingP = $_GET['parkingSelect'] == 'null' ? 'null' : filter_var($_GET['parkingSelect'], FILTER_VALIDATE_BOOLEAN);
+$parkingP = isset($_GET['parkingSelect']) ? filter_var($_GET['parkingSelect'], FILTER_VALIDATE_BOOLEAN) : null;
+// $voteP = isset($_GET['voteSelect']) ? '' : null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,6 +60,16 @@ $parkingP = $_GET['parkingSelect'] == 'null' ? 'null' : filter_var($_GET['parkin
           <option value="true">Si</option>
         </select>
       </div>
+      <!-- <div class="mb-3">
+        <select name="voteSelect" class="form-select" aria-label="Default select example">
+          <option value="" selected>Voto</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div> -->
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
@@ -66,7 +77,7 @@ $parkingP = $_GET['parkingSelect'] == 'null' ? 'null' : filter_var($_GET['parkin
 
     <div class="row">
       <?php foreach ($hotels as $hotel) : ?>
-        <?php if ($hotel['parking'] == $parkingP || is_string($parkingP) || !isset($parkingP)) : ?>
+        <?php if (!isset($parkingP) || $hotel['parking'] == $parkingP || is_string($parkingP) && $votep <= $hotel['vote']) : ?>
           <div class="col-4 my-3 ">
             <div class="card">
               <div class="card-body">
