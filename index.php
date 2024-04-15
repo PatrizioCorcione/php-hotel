@@ -1,5 +1,4 @@
 <?php
-
 $hotels = [
   [
     'name' => 'Hotel Belvedere',
@@ -37,6 +36,7 @@ $hotels = [
     'distance_to_center' => 50
   ],
 ];
+$parkingP = $_GET['parkingSelect'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,20 +50,39 @@ $hotels = [
 
 <body>
   <div class="container">
+    <form method="GET" action="index.php">
+      <div class="mb-3">
+        <label for="parking" class="form-label">Filtri</label>
+        <select name="parkingSelect" class="form-select" aria-label="Default select example">
+          <option selected>Disponibilita parcheggio</option>
+          <option value="false">No</option>
+          <option value="true">Si</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <div class="container">
+
     <div class="row">
       <?php foreach ($hotels as $hotel) : ?>
-        <!-- $parkingP = ($hotel['parking']) ? 'Si' : 'No'; -->
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"> <?php echo $hotel['name'] ?> </h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Voto: <?php echo $hotel['vote'] ?></h6>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Parcheggio: <?php echo ($hotel['parking']) ? 'Si' : 'No' ?></h6>
-            <h5>Descrizione:</h5>
-            <p class="card-text"><?php echo $hotel['description'] ?></p>
+        <?php if ($hotel['parking'] == $parkingP || !isset($parkingP)) : ?>
+          <div class="col-4 my-3 ">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"> <?php echo $hotel['name'] ?> </h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Distanza dal centro: : <?php echo $hotel['distance_to_center'] ?></h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Voto: <?php echo $hotel['vote'] ?></h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Parcheggio: <?php echo ($hotel['parking']) ? 'Si' : 'No' ?></h6>
+                <h5>Descrizione:</h5>
+                <p class="card-text"><?php echo $hotel['description'] ?></p>
+              </div>
+            </div>
           </div>
-        </div>
+        <?php endif ?>
       <?php endforeach ?>
     </div>
+  </div>
   </div>
 </body>
 
