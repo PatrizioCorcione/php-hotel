@@ -37,15 +37,6 @@ $hotels = [
     'distance_to_center' => 50
   ],
 ];
-
-foreach ($hotels as $hotel) {
-  $nameP = $hotel['name'];
-  $descriptionP = $hotel['description'];
-  $parkingP = ($hotel['parking']) ? 'Si' : 'No';
-  $votep = $hotel['vote'];
-  $distanceP = $hotel['distance_to_center'];
-  echo "<h3>$nameP</h3>", "<h3>$descriptionP</h3>", "<h3>Parcheggio:$parkingP</h3>", "<h3>$voteP</h3>", "<h3>$distranceP</h3>";
-};
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,11 +44,27 @@ foreach ($hotels as $hotel) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.css' integrity='sha512-VcyUgkobcyhqQl74HS1TcTMnLEfdfX6BbjhH8ZBjFU9YTwHwtoRtWSGzhpDVEJqtMlvLM2z3JIixUOu63PNCYQ==' crossorigin='anonymous' />
   <title>Document</title>
 </head>
 
 <body>
-
+  <div class="container">
+    <div class="row">
+      <?php foreach ($hotels as $hotel) : ?>
+        <!-- $parkingP = ($hotel['parking']) ? 'Si' : 'No'; -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"> <?php echo $hotel['name'] ?> </h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Voto: <?php echo $hotel['vote'] ?></h6>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Parcheggio: <?php echo ($hotel['parking']) ? 'Si' : 'No' ?></h6>
+            <h5>Descrizione:</h5>
+            <p class="card-text"><?php echo $hotel['description'] ?></p>
+          </div>
+        </div>
+      <?php endforeach ?>
+    </div>
+  </div>
 </body>
 
 </html>
